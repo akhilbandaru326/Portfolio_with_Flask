@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ data.name }} - Portfolio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="hero">
+        <div class="container">
+            <h1>{{ data.name }}</h1>
+            <h2>{{ data.tagline }}</h2>
+            <p>Email: {{ data.email }} | Phone: {{ data.phone }}</p>
+            <div class="links">
+                <a href="{{ data.github }}" target="_blank">GitHub</a>
+                <a href="{{ data.linkedin }}" target="_blank">LinkedIn</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="skills" class="section">
+        <div class="container">
+            <h2>Technical Skills</h2>
+            <div class="skills-list">
+                {% for skill in data.skills %}
+                <span>{{ skill }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section alt-bg">
+        <div class="container">
+            <h2>Projects</h2>
+            {% for project in data.projects %}
+            <div class="project-card">
+                <h3>{{ project.title }}</h3>
+                <p class="tech-stack">{{ project.tech }}</p>
+                <p>{{ project.desc }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section id="education" class="section">
+        <div class="container">
+            <h2>Education</h2>
+            <p>{{ data.education }}</p>
+            <p><strong>Full Stack Development Intern</strong> at Cognifyz Technologies (Jul 2025-Aug 2025)</p> </div>
+    </section>
+
+    <section id="contact" class="section alt-bg">
+        <div class="container">
+            <h2>Contact Me</h2>
+            <form action="{{ url_for('submit_contact') }}" method="POST" class="contact-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 {{ data.name }}. Built with Flask.</p>
+        </div>
+    </footer>
+</body>
+</html>
